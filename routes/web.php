@@ -31,6 +31,6 @@ $router->get('/getuser/{id}', 'UserController@getID'); // get user by id
 
 $router->post('/adduser', 'UserController@add'); // create new user record
 
-$router->put('/updateuser/{id}', 'UserController@update'); // update user record
+$router->patch('/updateuser/{id}', 'UserController@update'); // update user record
 
 $router->delete('/deleteuser/{id}', 'UserController@delete'); // delete record
