@@ -5,18 +5,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model{ 
+class UserJob extends Model{ 
 
  public $timestamps = false; // <-- para dili na need ang updated at @ created at column
 
- protected $primaryKey = 'id'; //<-- this is a primary key
+ protected $primaryKey = 'jobId'; //<-- this is a primary key
 
 //name of table
- protected $table = 'employees';
+ protected $table = 'tbluserjob';
 
  // column sa table
  protected $fillable = [
 
- 'first_name', 'last_name', 'id', 'jobId'
+ 'jobName'
  ];
  }

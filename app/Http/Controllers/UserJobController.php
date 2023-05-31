@@ -2,15 +2,14 @@
 
 // <-- CONTROLLER - The Middle Man
 namespace App\Http\Controllers;
+use App\Models\UserJob; // <-- The model
 use Illuminate\Http\Response;
-use App\Models\UserJob;
 use Illuminate\Http\Request; // <-- handling http request in lumen
-use App\Models\User; // <-- The model
 use App\Traits\ApiResponser; //<--- use to standarized our code for api response
 
 // use DB; // <----if you're not using lumen eloquent you can use DB coponent in lumen
 
-Class UserController extends Controller {  
+Class UserJobController extends Controller {  
 
 use ApiResponser;
 
@@ -22,23 +21,22 @@ $this->request = $request;
 // GET
     public function get(){
         //eloquent style
-        $users = User::all();
+        $users = UserJob::all();
         
         // sql string as parameter (if nag use og DB)
         //$user = DB::connection('mysql')
         // -> selects("Select * from tbluser");
         
-    return response()->json($users, 200); //<--Before
 
-    // return $this->successResponse($users); // same results but result is inside the data object variable
+     return $this->successResponse($users); // same results but result is inside the data object variable
 
     }
 
 // GET (ID)
-    public function getID($id)
+    public function getID($jobId)
     {
-        //
-        return User::where('id','like','%'.$id.'%')->get();
+        $userjob = UserJob::findOrFail($jobId);
+        return $this->successResponse($userjob);
     }
 
 // ADD
@@ -47,10 +45,8 @@ $this->request = $request;
     $rules = [
     'first_name' => 'required|max:20',
     'last_name' => 'required|max:20',
-    'jobId' => 'required|numeric|min:1|not_in:0',
     ];
     $this->validate($request,$rules);
-    $userjob =UserJob::findOrFail($request->jobId);
     $user = User::create($request->all());
 
     //return $user; //<---before
@@ -64,10 +60,8 @@ $this->request = $request;
     $rules = [
       'first_name' => 'required|max:20',
       'last_name' => 'required|max:20',
-      'jobId' => 'required|numeric|min:1|not_in:0',
     ];
     $this->validate($request, $rules);
-    $userjob =UserJob::findOrFail($request->jobId);
     $user = User::findOrFail($id);
     $user->fill($request->all());
 
@@ -91,8 +85,7 @@ $this->request = $request;
 
 public function index()
     {
-        $users = User::all();
-
-        return $this->successResponse($users);
+        $usersjob = UserJob::all();
+        return $this->successResponse($usersjob);
     }
 }
