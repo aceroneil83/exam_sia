@@ -38,19 +38,19 @@ $this->request = $request;
     public function getID($id)
     {
         //
-        return User::where('id','like','%'.$id.'%')->get();
+        return User::where('book_id','like','%'.$id.'%')->get();
     }
 
 // ADD
     public function add(Request $request ){
 
     $rules = [
-    'first_name' => 'required|max:20',
-    'last_name' => 'required|max:20',
-    'jobId' => 'required|numeric|min:1|not_in:0',
+    'book_name' => 'required|max:20',
+    'year_publish' => 'required|integer',
+    'author_ID' => 'required|numeric|min:1|not_in:0',
     ];
     $this->validate($request,$rules);
-    $userjob =UserJob::findOrFail($request->jobId);
+
     $user = User::create($request->all());
 
     //return $user; //<---before
@@ -61,15 +61,29 @@ $this->request = $request;
 // UPDATE
     public function update(Request $request,$id)
     {
-    $rules = [
-      'first_name' => 'required|max:20',
-      'last_name' => 'required|max:20',
-      'jobId' => 'required|numeric|min:1|not_in:0',
-    ];
-    $this->validate($request, $rules);
-    $userjob =UserJob::findOrFail($request->jobId);
-    $user = User::findOrFail($id);
-    $user->fill($request->all());
+        $rules = [
+            'book_name' => 'required|max:20',
+            'year_publish' => 'required|integer',
+            'author_ID' => 'required|numeric|min:1|not_in:0',
+            ];
+            $this->validate($request, $rules);
+            
+             $user = User::findOrFail($id);
+              $user->fill($request->all());
+
+
+
+
+
+    // $rules = [
+    //   'first_name' => 'required|max:20',
+    //   'last_name' => 'required|max:20',
+    //   'jobId' => 'required|numeric|min:1|not_in:0',
+    // ];
+    // $this->validate($request, $rules);
+    // $userjob =UserJob::findOrFail($request->jobId);
+    // $user = User::findOrFail($id);
+    // $user->fill($request->all());
 
     // if no changes happen
     // if ($user->isClean()) {

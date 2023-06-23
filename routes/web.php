@@ -18,22 +18,21 @@ $router->get('/', function () use ($router) {
 });
 
 
-/*Same to index controller
-    $router->get('/users',['uses' => 'UserController@get']); //get all users*/
 
-//<-- get all users
 
-$router->get('/employeeList',['uses' => 'UserController@get']); //get all users
+//<-- get all books
 
-$router->get('/users', 'UserController@index'); //<-- get all users
+$router->get('/books',['uses' => 'UserController@get']); //get all books
 
-$router->get('/getuser/{id}', 'UserController@getID'); // get user by id
+$router->get('/books', 'UserController@index'); //<-- get all books
 
-$router->post('/adduser', 'UserController@add'); // create new user record
+$router->get('/getbook/{id}', 'UserController@getID'); // get books by id
 
-$router->patch('/updateuser/{id}', 'UserController@update'); // update user record
+$router->post('/addbook', 'UserController@add'); // create a new book
 
-$router->delete('/deleteuser/{id}', 'UserController@delete'); // delete record
+$router->patch('/updatebook/{id}', 'UserController@update'); // Update book record based on book id 
+
+$router->delete('/deletebook/{id}', 'UserController@delete'); // Delete book record based on book id
 
 // userjob routes
 $router->get('/usersjob','UserJobController@index');
